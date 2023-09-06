@@ -1,7 +1,8 @@
-import { useState, useRef, Suspense } from "react";
+import React, { useState, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
+import { useInView } from "react-intersection-observer";
 
 const Stars = (props) => {
   const ref = useRef();
@@ -17,7 +18,7 @@ const Stars = (props) => {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
         <PointMaterial
           transparent
-          color='#f272c8'
+          color="#f272c8"
           size={0.002}
           sizeAttenuation={true}
           depthWrite={false}
@@ -28,15 +29,18 @@ const Stars = (props) => {
 };
 
 const StarsCanvas = () => {
-  return (
-    <div className='w-full h-auto absolute inset-0 z-[-1]'>
-      <Canvas camera={{ position: [0, 0, 1] }}>
-        <Suspense fallback={null}>
-          <Stars />
-        </Suspense>
+  const [ref, inView] = useInView();
 
-        <Preload all />
-      </Canvas>
+  return (
+    <div ref={ref} className="w-full h-auto absolute inset-0 z-[-1]">
+      {inView && (
+        <Canvas camera={{ position: [0, 0, 1] }}>
+          <Suspense fallback={null}>
+            <Stars />
+          </Suspense>
+          <Preload all />
+        </Canvas>
+      )}
     </div>
   );
 };
