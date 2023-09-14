@@ -1,3 +1,4 @@
+
 import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
@@ -11,7 +12,7 @@ const Earth = ({ isMobile }) => {
     <primitive
       object={earth.scene}
       scale={isMobile ? 1.5 : 2.50} // Adjust the scale for mobile devices
-      position-y={isMobile ? 1.8 : 0} // Move up by 20% for mobile devices
+      position-y={isMobile ? 2.6 : 0} // Move up by 20% for mobile devices
       rotation-y={0}
     />
   );
@@ -54,10 +55,10 @@ const EarthCanvas = () => {
           dpr={[1, 2]}
           gl={{ preserveDrawingBuffer: true }}
           camera={{
-            fov: 45,
+            fov: 50,
             near: 0.1,
             far: 200,
-            position: [-4, 3, 6],
+            position: [-4, 3, 4],
           }}
         >
           <Suspense fallback={<CanvasLoader />}>
@@ -70,10 +71,9 @@ const EarthCanvas = () => {
             <Earth isMobile={isMobile} /> {/* Pass isMobile prop */}
             <Preload all />
           </Suspense>
-        </Canvas>
+        </Canvas>  
       )}
     </div>
   );
 };
-
 export default EarthCanvas;

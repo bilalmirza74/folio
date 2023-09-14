@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'production', // or 'production'
+  mode: 'production', // or 'development'
   entry: './src/main.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,8 +29,16 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader', // or MiniCssExtractPlugin.loader if you're extracting CSS into a separate file
-          'css-loader',
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: "[name]__[local]___[hash:base64:5]",
+              },
+              sourceMap: process.env.NODE_ENV === 'production',
+            },
+          },
         ],
       },
       {

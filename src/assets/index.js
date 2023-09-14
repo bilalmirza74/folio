@@ -31,6 +31,7 @@ import tripguide from "./tripguide.png";
 
 import hygeia from "./hygeia.png";
 import cars07 from "./cars07.png";
+import call from "./call.png";
 
 export {
   logo,
@@ -61,5 +62,6 @@ export {
   jobit,
   tripguide,
   hygeia,
-  cars07
+  cars07,
+  call
 };
